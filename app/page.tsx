@@ -6,7 +6,7 @@ export default function Home() {
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert h-5 w-[100px]"
-          src="/next1.svg"
+          src="/next.svg"
           alt="Next.js logo"
           width={100}
           height={20}
@@ -61,9 +61,9 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             Documentation
-          </a>
+            <a>
+            </div>
+          </main>
         </div>
-      </main>
-    </div>
-  );
+        );
 }
