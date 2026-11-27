@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 px-6 font-sans dark:bg-black">
@@ -33,6 +35,14 @@ export default function Home() {
               Publishes the static export to Netlify when main passes CI.
             </p>
           </div>
+        </div>
+        <div className="mt-8">
+          <Link
+            href="/login"
+            className="inline-flex items-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          >
+            Go to Login Page →
+          </Link>
         </div>
       </main>
     </div>
