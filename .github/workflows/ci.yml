@@ -32,7 +32,6 @@ jobs:
         run: npm run build
 
       - name: Upload build artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-out
@@ -49,8 +48,25 @@ jobs:
           name: nextjs-out
           path: out
 
-      - name: Deploy to Netlify
+      - name: Deploy to Netlify (Production)
         run: npx --yes netlify-cli deploy --prod --dir=out
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  deploy-preview:
+    needs: build-and-lint
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: nextjs-out
+          path: out
+
+      - name: Deploy Preview to Netlify
+        run: npx --yes netlify-cli deploy --dir=out --alias=pr-${{ github.event.pull_request.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
